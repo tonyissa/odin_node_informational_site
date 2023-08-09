@@ -35,5 +35,15 @@ const server = http.createServer(async function (req, res) {
         } finally {
             res.end();
         }
+    } else {
+        res.writeHead(404, {'Content-Type': 'text/html'});
+        try {
+            const data = await fs.readFile('./404.html', 'utf8');
+            res.write(data);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            res.end();
+        }
     }
 }).listen(8080);
